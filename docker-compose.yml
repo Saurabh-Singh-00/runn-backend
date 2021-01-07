@@ -1,0 +1,16 @@
+version: '3'
+
+services: 
+  backend:
+    build: .
+    command: python src/manage.py runserver 0.0.0.0:8000
+    container_name: runn-backend
+    volumes: 
+      - .:/runn-backend
+    ports: 
+      - "8000:8000"
+
+networks:
+  default:      
+    external:
+      name: runn-network
