@@ -24,6 +24,8 @@ sudo docker container run --name runn-IN-1 --network runn-network -e MAX_HEAP_SI
 
 *Clone this repository and follow the steps below*
 
+> Add a `.env` file in the repository before proceeding and paste the contents from `.env_sample`
+
 <h4>1. <img src="https://cdn.iconscout.com/icon/free/png-24/docker-226091.png" />  Docker&trade; Setup for Django server
 </h4>
 
