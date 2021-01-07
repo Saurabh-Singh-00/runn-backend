@@ -1,0 +1,8 @@
+# Ignore Virtual Environment Folder
+venv/
+
+# Ignore Environment Variable File
+src/.env
+
+# Ignore Astra connection Folder
+astra/
