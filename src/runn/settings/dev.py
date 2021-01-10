@@ -1,5 +1,6 @@
 from .base import *
 from cassandra import ConsistencyLevel
+from cassandra.auth import PlainTextAuthProvider
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
@@ -11,23 +12,16 @@ ALLOWED_HOSTS = ['*']
 DATABASES.update({
     'cassandra': {
         'ENGINE': 'django_cassandra_engine',
-        'NAME': os.getenv('CASSANDRA_KEYSPACE'),
-        'USER': os.getenv('CASSANDRA_DB_USERNAME'),
-        'PASSWORD': os.getenv('CASSANDRA_DB_PASSWORD'),
-        'HOST': '172.18.0.2',
+        'NAME': os.getenv('ASTRA_KEYSPACE'),
+        'USER': os.getenv('ASTRA_DB_USERNAME'),
+        'PASSWORD': os.getenv('ASTRA_DB_PASSWORD'),
         'OPTIONS': {
-            'replication': {
-                'strategy_class': 'SimpleStrategy',
-                'replication_factor': 2
-            },
             'connection': {
-                'consistency': ConsistencyLevel.ONE,
-                'retry_connect': True
+                'cloud':{
+                    'secure_connect_bundle': BASE_DIR / 'astra/astra-bundle.zip',
+                },
+                'auth_provider': PlainTextAuthProvider(username=os.getenv('ASTRA_DB_USERNAME'), password=os.getenv('ASTRA_DB_PASSWORD'))
             },
-            'session': {
-                'default_timeout': 10,
-                'default_fetch_size': 10000
-            }
         }
     }
 })
