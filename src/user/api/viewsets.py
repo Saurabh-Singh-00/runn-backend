@@ -10,6 +10,11 @@ class UserViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, GenericVie
 
     serializer_class = serializers.UserSerializer
 
+    def create(self, request, *args, **kwargs):
+        user = super().create(request, *args, **kwargs)
+        serializers.model.UserStats.create(email=user.data['email'])
+        return user
+
     def retrieve(self, request, email=None):
         user = get_object_or_404(serializers.model.User, email=email)
         return Response(serializers.UserSerializer(user).data)
@@ -32,3 +37,10 @@ class UserStatsViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixin
     def retrieve(self, request, email=None):
         stats = get_object_or_404(serializers.model.UserStats, email=email)
         return Response(serializers.UserStatsSerializer(stats).data)
+
+class UserStatsByMarathonViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewSet):
+
+    serializer_class = serializers.UserStatsByMarathonSerializer
+
+    def get_queryset(self, *args, **kwargs):
+        return serializers.model.UserStatsByMarathon.objects.filter(marathon_id=self.kwargs['marathon_id'], email=self.kwargs['email'])

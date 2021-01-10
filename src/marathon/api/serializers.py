@@ -1,9 +1,9 @@
 from django_cassandra_engine.rest import serializers as cass_serializers
-from rest_framework.fields import Field
+from rest_framework.fields import ListField
 from .. import models as model
 
 
-class CassandraSetField(Field):
+class CassandraSetField(ListField):
 
     def __init__(self, *args, **kwargs):
         self._type = args
@@ -16,7 +16,7 @@ class CassandraSetField(Field):
         return data
 
 
-class CassandraTupleField(Field):
+class CassandraTupleField(ListField):
 
     def __init__(self, *args, **kwargs):
         self._type = args
@@ -39,10 +39,22 @@ class MarathonSerializer(cass_serializers.DjangoCassandraModelSerializer):
         }
     }
 
+    def validate_id(self, data):
+        if data == "" or data == None:
+            import uuid
+            return uuid.uuid4()
+        return data
+
+    def validate_date_time(self, data):
+        if data == "" or data == None:
+            import datetime
+            return datetime.datetime.now()
+        return data
+
     def validate_sponsors(self, data):
         s = set()
-        if data == None:
-            return data
+        if data == None or isinstance(data, str):
+            return None
         for sponsor in data:
             s.add(model.SponsorType(**sponsor))
         return s
@@ -59,6 +71,12 @@ class MarathonSerializer(cass_serializers.DjangoCassandraModelSerializer):
 
 
 class RunnerSerializer(cass_serializers.DjangoCassandraModelSerializer):
+
+    def validate_joined_at(self, data):
+        if data == "" or data == None:
+            import datetime
+            return datetime.datetime.now()
+        return data
 
     class Meta:
         model = model.Runner

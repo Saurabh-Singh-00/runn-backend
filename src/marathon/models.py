@@ -10,7 +10,7 @@ import datetime
 
 class SponsorType(UserType):
 
-    id = columns.UUID()
+    email = columns.Text()
     name = columns.Text()
     logo = columns.Text()
 
@@ -18,7 +18,7 @@ class SponsorType(UserType):
         return self
 
     def __hash__(self):
-        return hash((self.id))
+        return hash((self.email))
 
 
 user_types = [SponsorType]
@@ -42,13 +42,12 @@ class Marathon(DjangoCassandraModel):
     __keyspace__ = os.getenv('CASSANDRA_KEYSPACE')
 
     country = columns.Text(partition_key=True)
-    state = columns.Text(partition_key=True)
-    city = columns.Text(primary_key=True)
-    pincode = columns.Integer(primary_key=True, clustering_order='ASC')
     id = columns.UUID(primary_key=True, default=uuid.uuid4,
                       clustering_order='ASC')
-    date_time = columns.DateTime(
-        primary_key=True, default=datetime.datetime.now(), clustering_order='DESC')
+    state = columns.Text()
+    city = columns.Text()
+    pincode = columns.Integer()
+    date_time = columns.DateTime(default=datetime.datetime.now())
     title = columns.Text()
     description = columns.Text()
     organiser_email = columns.Text()
@@ -72,8 +71,9 @@ class Runner(DjangoCassandraModel):
     __keyspace__ = os.getenv('CASSANDRA_KEYSPACE')
 
     marathon_id = columns.UUID(partition_key=True)
-    name = columns.Text(primary_key=True, clustering_order='ASC')
+    marathon_country = columns.Text(primary_key=True)
     email = columns.Text(primary_key=True, clustering_order='ASC')
+    name = columns.Text()
     pic = columns.Text()
     participation_type = columns.Text()
     joined_at = columns.DateTime(default=datetime.datetime.now())
@@ -90,14 +90,10 @@ class MarathonsByRunner(DjangoCassandraModel):
     __keyspace__ = os.getenv('CASSANDRA_KEYSPACE')
 
     user_email = columns.Text(partition_key=True)
+    country = columns.Text(primary_key=True)
     id = columns.UUID(primary_key=True, clustering_order='ASC')
-    date_time = columns.DateTime(primary_key=True, clustering_order='DESC')
     title = columns.Text()
     distance = columns.Float()
-    country = columns.Text()
-    city = columns.Text()
-    state = columns.Text()
-    pincode = columns.Integer()
 
     class Meta:
         get_pk_field = 'user_email'
@@ -111,14 +107,10 @@ class MarathonsBySponsor(DjangoCassandraModel):
     __keyspace__ = os.getenv('CASSANDRA_KEYSPACE')
 
     sponsor_id = columns.Text(partition_key=True)
-    id = columns.UUID(primary_key=True, clustering_order='ASC')
-    date_time = columns.DateTime(primary_key=True, clustering_order='DESC')
+    id = columns.UUID(primary_key=True)
+    country = columns.Text(primary_key=True)
     title = columns.Text()
     distance = columns.Float()
-    country = columns.Text()
-    city = columns.Text()
-    state = columns.Text()
-    pincode = columns.Integer()
 
     class Meta:
         get_pk_field = 'sponsor_id'

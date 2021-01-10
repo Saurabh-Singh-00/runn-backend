@@ -1,7 +1,7 @@
 from django_cassandra_engine.models import DjangoCassandraModel
 from cassandra.cqlengine import columns
 import os
-import time
+import datetime
 
 
 class User(DjangoCassandraModel):
@@ -61,7 +61,7 @@ class UserStatsByMarathon(DjangoCassandraModel):
 
     marathon_id = columns.UUID(partition_key=True)
     email = columns.Text(partition_key=True)
-    time = columns.Time(default=time.time())
+    time = columns.DateTime(primary_key=True, default=datetime.datetime.now())
     lat = columns.Float()
     long = columns.Float()
 
