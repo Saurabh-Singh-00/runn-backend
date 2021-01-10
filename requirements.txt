@@ -4,7 +4,7 @@ autopep8==1.5.4
 cassandra-driver==3.24.0
 click==7.1.2
 Django==2.2
-django-cassandra-engine==1.6.1
+django-cassandra-db==0.0.2
 djangorestframework==3.12.2
 geomet==0.2.1.post1
 isort==5.7.0

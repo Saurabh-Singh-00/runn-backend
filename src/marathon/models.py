@@ -7,6 +7,7 @@ import os
 import uuid
 import datetime
 
+setattr(columns.Column, 'verbose_name', None)
 
 class SponsorType(UserType):
 
@@ -61,6 +62,7 @@ class Marathon(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'country'
+        app_label = 'marathon'
 
 
 class Runner(DjangoCassandraModel):
@@ -80,6 +82,7 @@ class Runner(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'marathon_id'
+        app_label = 'marathon'
 
 
 class MarathonsByRunner(DjangoCassandraModel):
@@ -97,6 +100,7 @@ class MarathonsByRunner(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'user_email'
+        app_label = 'marathon'
 
 
 class MarathonsBySponsor(DjangoCassandraModel):
@@ -114,3 +118,4 @@ class MarathonsBySponsor(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'sponsor_id'
+        app_label = 'marathon'

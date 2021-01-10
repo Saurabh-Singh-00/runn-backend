@@ -31,3 +31,5 @@ DATABASES.update({
         }
     }
 })
+
+SITE_ID = 1

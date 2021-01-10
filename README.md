@@ -1,4 +1,7 @@
 # Runn Backend :tw-1f3c3:
+
+> Note: Please checkout Astra&trade; Database setup on astra branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
+
 **There are two requirements to setup this project.**
 1.  Docker&trade;
 2. Virtual Environment
@@ -58,4 +61,4 @@ pip install -r requirements.txt
 ```
 
 #### TODOs:
-- [ ] Add Astra&trade; Connection
+- [X] Add Astra&trade; Connection
