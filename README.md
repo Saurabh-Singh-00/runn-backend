@@ -1,6 +1,8 @@
-<h1> Runn Backend <img src="https://www.datastax.com/sites/default/files/2020-12/ds-astra-logotype.png" height=24 />
-</h1>
-**There are two types of requirements to setup this project. You can choose any one depending upon your resources**
+# Runn Backend :tw-1f3c3:
+
+> Note: Please checkout Astra&trade; Database setup on astra branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
+
+**There are two requirements to setup this project.**
 1.  Docker&trade;
 2. Virtual Environment
 
@@ -120,6 +122,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+<<<<<<< HEAD
 - Migrate Your Database
 ```console
 python src/manage.py sync_cassandra
@@ -129,3 +132,7 @@ python src/manage.py sync_cassandra
 ```console
 python src/manage.py runserver
 ```
+=======
+#### TODOs:
+- [X] Add Astra&trade; Connection
+>>>>>>> main

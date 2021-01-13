@@ -1,21 +1,12 @@
 from django_cassandra_engine.rest import serializers as cass_serializers
-from rest_framework.serializers import DateTimeField
+from rest_framework.serializers import DateTimeField, DateField
 import datetime
 from .. import models as model
 
-class CassandraTimeField(DateTimeField):
-
-    def __init__(self, *args, **kwargs):
-        self._type = args
-        super().__init__(*args, **kwargs)
-
-    def to_representation(self, value):
-        return str(value)
-
-    def to_internal_value(self, data):
-        return data
 
 class UserSerializer(cass_serializers.DjangoCassandraModelSerializer):
+
+    dob = DateField(format=None)
 
     class Meta:
         model = model.User
@@ -34,7 +25,7 @@ class UserStatsByMarathonSerializer(cass_serializers.DjangoCassandraModelSeriali
     serializer_field_mapping = {
         **cass_serializers.DjangoCassandraModelSerializer.serializer_field_mapping,
         **{
-            model.columns.DateTime: CassandraTimeField,
+            model.columns.DateTime: DateTimeField,
         }
     }
 

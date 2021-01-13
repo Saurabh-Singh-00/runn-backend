@@ -25,3 +25,6 @@ DATABASES.update({
         }
     }
 })
+
+SITE_ID = 1
+CASSANDRA_FALLBACK_ORDER_BY_PYTHON = True

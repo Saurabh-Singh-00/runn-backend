@@ -2,7 +2,9 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework import mixins
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework import status
 from django.http import Http404
+import json
 from . import serializers
 
 
@@ -10,14 +12,29 @@ class UserViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, GenericVie
 
     serializer_class = serializers.UserSerializer
 
+    def serialize_user(self, user):
+        return {
+            "email": user.email,
+            "dob": str(user.dob),
+            "name": user.name,
+            "pic": user.pic
+        }
+
     def create(self, request, *args, **kwargs):
-        user = super().create(request, *args, **kwargs)
-        serializers.model.UserStats.create(email=user.data['email'])
-        return user
+        user = serializers.model.User.create(
+            email=request.data['email'],
+            name=request.data['name'],
+            dob=request.data['dob'],
+            pic=request.data['pic']
+        )
+        serializers.model.UserStats.create(email=user.email)
+        return Response(self.serialize_user(user), status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, email=None):
         user = get_object_or_404(serializers.model.User, email=email)
-        return Response(serializers.UserSerializer(user).data)
+        if isinstance(user, serializers.model.User):
+            return Response(self.serialize_user(user))
+        return Response(user)
 
 
 class UserStatsViewSet(mixins.RetrieveModelMixin, mixins.CreateModelMixin, mixins.UpdateModelMixin, GenericViewSet):

@@ -3,6 +3,7 @@ from cassandra.cqlengine import columns
 import os
 import datetime
 
+setattr(columns.Column, 'verbose_name', None)
 
 class User(DjangoCassandraModel):
     """
@@ -18,6 +19,7 @@ class User(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'email'
+        app_label = 'user'
 
 
 class Sponsor(DjangoCassandraModel):
@@ -35,6 +37,7 @@ class Sponsor(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'email'
+        app_label = 'user'
 
 
 class UserStats(DjangoCassandraModel):
@@ -50,6 +53,7 @@ class UserStats(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'email'
+        app_label = 'user'
 
 
 class UserStatsByMarathon(DjangoCassandraModel):
@@ -67,3 +71,4 @@ class UserStatsByMarathon(DjangoCassandraModel):
 
     class Meta:
         get_pk_field = 'marathon_id'
+        app_label = 'user'

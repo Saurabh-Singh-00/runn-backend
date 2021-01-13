@@ -6,3 +6,9 @@ src/.env
 
 # Ignore Astra connection Folder
 astra/
+
+# Ignore Pycache
+**/__pycache__
+
+# Ignore Sqlite3 DB
+db.sqlite3
