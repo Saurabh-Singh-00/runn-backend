@@ -1,6 +1,6 @@
-# Runn Backend :tw-1f3c3:
+# Runn Backend - Astra :tw-1f3c3:
 
-> Note: Please checkout Astra&trade; Database setup on astra branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
+> Note: Please checkout Astra&trade; Database setup on [astra](https://github.com/Saurabh-Singh-00/runn-backend/tree/astra "astra") branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
 
 **There are two requirements to setup this project.**
 1.  Docker&trade;
@@ -122,7 +122,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-<<<<<<< HEAD
 - Migrate Your Database
 ```console
 python src/manage.py sync_cassandra
@@ -132,7 +131,5 @@ python src/manage.py sync_cassandra
 ```console
 python src/manage.py runserver
 ```
-=======
 #### TODOs:
 - [X] Add Astra&trade; Connection
->>>>>>> main
