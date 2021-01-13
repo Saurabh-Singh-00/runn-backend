@@ -41,6 +41,11 @@ class RunnerViewSet(mixins.ListModelMixin, mixins.CreateModelMixin, GenericViewS
     def get_queryset(self):
         return serializers.model.Runner.objects.filter(**self.kwargs)
 
+    def retrieve(self, request, marathon_id, marathon_country, email):
+        runner = get_object_or_404(
+            serializers.model.Runner, marathon_id=marathon_id, marathon_country=marathon_country, email=email)
+        return Response(serializers.RunnerSerializer(runner).data)
+
     def create(self, request, marathon_id, *args, **kwargs):
         data = request.data
         marathon = get_object_or_404(
