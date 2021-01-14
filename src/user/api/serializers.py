@@ -32,6 +32,7 @@ class UserStatsByMarathonSerializer(cass_serializers.DjangoCassandraModelSeriali
     def validate_time(self, data):
         if data == None or data == "":
             return datetime.datetime.now()
+        return data
 
     class Meta:
         model = model.UserStatsByMarathon

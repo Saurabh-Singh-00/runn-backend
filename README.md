@@ -3,8 +3,8 @@
 > Note: Please checkout Astra&trade; Database setup on [astra](https://github.com/Saurabh-Singh-00/runn-backend/tree/astra "astra") branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
 
 **There are two requirements to setup this project.**
-1.  Docker&trade;
-2. Virtual Environment
+1. [Docker&trade;](#1---docker-setup-for-django-server)
+2. [Virtual Environment](#2---virtual-environment-setup-for-django-server)
 
 > Note: Make sure you have setup [Datastax Astra](https://astra.datastax.com/ "Datastax Astra")&trade; database before starting the Django Server
 
@@ -84,7 +84,7 @@ Download your Astra&trade; Secure connect bundle and place it in the folder
 
 *Clone this repository and follow any **ONE** of the steps below*
 
-> Add a `.env` file in the repository before proceeding and paste the contents from `.env_sample`
+> Add a `.env` file in the `src` folder before proceeding and paste the contents from `.env_sample`
 
 <h4>1. <img src="https://cdn.iconscout.com/icon/free/png-24/docker-226091.png" />  Docker&trade; Setup for Django server
 </h4>
@@ -94,7 +94,7 @@ Download your Astra&trade; Secure connect bundle and place it in the folder
 sudo docker-compose run backend python src/manage.py sync_cassandra
 ```
 
-- Run docker image
+- Run Django Server
 ```console
 sudo docker-compose run -p 8000:8000 backend
 ```

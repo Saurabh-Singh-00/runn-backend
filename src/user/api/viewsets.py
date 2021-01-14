@@ -61,3 +61,14 @@ class UserStatsByMarathonViewSet(mixins.ListModelMixin, mixins.CreateModelMixin,
 
     def get_queryset(self, *args, **kwargs):
         return serializers.model.UserStatsByMarathon.objects.filter(marathon_id=self.kwargs['marathon_id'], email=self.kwargs['email'])
+
+    def check_completion(self, *args, **kwargs):
+        stats = None
+        try:
+            stats = serializers.model.UserStatsByMarathon.objects.filter(marathon_id=self.kwargs['marathon_id'], email=self.kwargs['email'])[0]
+            stats = serializers.UserStatsByMarathonSerializer(stats).data
+        except IndexError:
+            stats = False
+        if not stats:
+            return Response(exception=Http404(), status=status.HTTP_404_NOT_FOUND)
+        return Response(data=stats)
