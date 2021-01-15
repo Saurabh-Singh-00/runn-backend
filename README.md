@@ -2,6 +2,11 @@
 
 > Note: Please checkout Astra&trade; Database setup on [astra](https://github.com/Saurabh-Singh-00/runn-backend/tree/astra "astra") branch if you **don't** want to setup Apache Cassandra&trade; locally on your system.
 
+> The Front-end setup of this app consists of an Android app and a Smart watch app, which streams data at high intensity to Astra&trade;.
+
+- [Runn Flutter App](https://github.com/Saurabh-Singh-00/runn "Runn App")
+- [Runn Wear OS App](https://github.com/Saurabh-Singh-00/runn-wear "Runn Wear OS App")
+
 **There are two requirements to setup this project.**
 1. [Docker&trade;](#1---docker-setup-for-django-server)
 2. [Virtual Environment](#2---virtual-environment-setup-for-django-server)
@@ -133,3 +138,7 @@ python src/manage.py runserver
 ```
 #### TODOs:
 - [X] Add Astra&trade; Connection
+
+![App Architecture](images/Architecture.jpg "App Architecture")
+
+![Wear OS](images/WearOSPoster.jpg "Wear OS")

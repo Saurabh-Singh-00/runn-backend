@@ -1,2 +1,5 @@
 # Ignore Virtual Environment Folder
 venv
+
+# Ignore images
+images
